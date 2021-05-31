@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\PostExport;
 use Livewire\Component;
 use App\Models\Post;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Posts extends Component
 {
@@ -72,5 +74,10 @@ class Posts extends Component
     {
         Post::find($id)->delete();
         session()->flash('message', 'Post Deleted Successfully.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new PostExport, 'post.xlsx');
     }
 }
