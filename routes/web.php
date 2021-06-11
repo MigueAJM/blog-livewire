@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::get('post', Posts::class)->name('post');
 Route::get('excel', [Posts::class, 'export'])->name('export');
+Route::get('pdf', [Posts::class, 'exportpdf'])->name('Export.pdf');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

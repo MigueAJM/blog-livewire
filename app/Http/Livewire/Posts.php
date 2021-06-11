@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Exports\PostExport;
 use Livewire\Component;
 use App\Models\Post;
+use Illuminate\Support\Facades\App;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Posts extends Component
@@ -79,5 +80,13 @@ class Posts extends Component
     public function export()
     {
         return Excel::download(new PostExport, 'post.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $data = Post::all();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdf.example-pdf', ['data' => $data]);
+        return $pdf->stream();
     }
 }
